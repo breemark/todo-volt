@@ -42,7 +42,11 @@ $deleteTodo = function (Todo $todo) {
             </x-slot:value>
 
             <x-slot:actions>
-                <x-button icon="o-check" class="text-green-500" wire:click="completeTodo({{$todo->id}})" spinner />
+                @if($todo->completed)
+                    <x-button icon="o-minus-circle" class="text-blue-500" wire:click="completeTodo({{$todo->id}})" spinner />
+                @else
+                    <x-button icon="o-check" class="text-green-500" wire:click="completeTodo({{$todo->id}})" spinner />
+                @endif
                 <x-button icon="o-trash" class="text-red-500" wire:click="deleteTodo({{$todo->id}})" spinner />
             </x-slot:actions>
             

@@ -31,7 +31,7 @@ $closeAlert = function () {
 
 <div>
     @if(session('status'))
-    <x-alert x-show="open" icon="o-information-circle" class="alert-success mb-5">
+    <x-alert icon="o-information-circle" class="alert-success mb-5">
         {{session('status')}}
         <x-slot:actions>
             <form wire:submit="closeAlert"> 
