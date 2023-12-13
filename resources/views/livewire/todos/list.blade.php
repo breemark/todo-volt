@@ -3,9 +3,7 @@
 use App\Models\Todo;
 use function Livewire\Volt\{state, rules, computed};
 
-state(['title' => '']);
 
-rules(['title' => 'required']);
 
 $todos = computed(fn() => Todo::all());
 
