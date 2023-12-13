@@ -3,6 +3,9 @@
     
     <livewire:todos.create />
 
-    <livewire:todos.list />
+    <div class="pt-16">
+        <livewire:todos.list />
+    </div>
+    
 
 </div>
