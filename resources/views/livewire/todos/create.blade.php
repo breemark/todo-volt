@@ -7,27 +7,46 @@ state(['title' => '']);
 
 rules(['title' => 'required|min:3|max:99']);
 
-$saveTodo = function () {
+$createTodo = function () {
     $validated = $this->validate();
     
     Todo::create($validated);
 
+    $createTodoMessage = "Todo created: {$this->title}";
+
     $this->title = '';
+
+    $this->dispatch('todo-created');
+
+    session()->flash('status', $createTodoMessage);
+
 };
+
+$closeAlert = function () {
+    session()->forget('status');
+}
+
 
 ?>
 
 <div>
     @if(session('status'))
-    <x-alert icon="o-information-circle" class="alert-success mb-5">
+    <x-alert x-show="open" icon="o-information-circle" class="alert-success mb-5">
         {{session('status')}}
+        <x-slot:actions>
+            <form wire:submit="closeAlert"> 
+                <x-button type="submit" label="Dismiss" />
+            </form>
+
+        </x-slot:actions>
     </x-alert>
     @endif
-    <form wire:submit="saveTodo">
+    <form wire:submit="createTodo">
         <x-textarea
-            label="New Todo"
+            id="title"
+            for="title"
             wire:model="title"
-            placeholder="What do you have in mind?..."
+            placeholder="What do you need to do?..."
             hint="Max 100 chars"
             rows="2"
             inline />
